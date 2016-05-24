@@ -24,6 +24,10 @@ Vagrant.configure(2) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
+  # HTTP and Zend Server ports
+  config.vm.network "forwarded_port", guest: 80, host: 8083
+  config.vm.network "forwarded_port", guest: 10081, host: 10083
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.33.10"
@@ -68,4 +72,13 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+
+  config.vm.provision "shell", inline: <<-SHELL
+    cd /home/vagrant
+    wget http://downloads.zend.com/zendserver/8.5.3/ZendServer-8.5.3-RepositoryInstaller-linux.tar.gz
+    sudo tar -zxvf ZendServer-8.5.3-RepositoryInstaller-linux.tar.gz
+    cd ZendServer-RepositoryInstaller-linux/
+    sudo ./install_zs.sh 5.6 --automatic
+  SHELL
+
 end
