@@ -5,7 +5,7 @@ Installs and provisions an AppsInHD Zend Server
 * Ubuntu 14.04 LTS
 * Zend Server 8.5.3
 * PHP 5.6
-* MariaDB 10.0
+* MariaDB 10.1
 * Supervisor
 * GIT
 
@@ -19,5 +19,5 @@ Installs and provisions an AppsInHD Zend Server
 4. Create new Zend Studio Project from this GIT repository
 	* https://github.com/wespals/AppsInHD-zend-server
 5. Guest Machine setup
-    * Run/Execute the command `vagrant up` in Zend Studio/command prompt
+    * Run `vagrant up` in command prompt
 6. Enjoy http://192.168.33.10:10081/ZendServer/

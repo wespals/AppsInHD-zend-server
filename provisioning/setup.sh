@@ -5,7 +5,6 @@ PHP_VERSION=$2
 ZS_ADMIN_PASSWORD=$3
 ZS_WEBAPI_KEY_NAME=$4
 ZS_WEBAPI_KEY_SECRET=$5
-DB_PASS=$6
 
 echo "Provisioning virtual machine..."
 
@@ -14,7 +13,7 @@ echo "Provisioning virtual machine..."
 #    echo "Installing Ansible"
 #    apt-get install -y software-properties-common
 #    apt-add-repository ppa:ansible/ansible
-#    apt-get update -y
+#    apt-get update
 #    apt-get install -y ansible
 #fi
 #echo "Ansible Installed"
@@ -40,25 +39,20 @@ if [ ! -f /home/vagrant/zs-bootstrapped ]
 fi
 echo "Zend Server $ZS_VERSION Bootstrapped"
 
-#if [ ! -f /usr/bin/mysql ]
-#    then
-#    echo "Installing MariaDB"
-#    apt-get update -y
-#    export DEBIAN_FRONTEND=noninteractive
-#    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password $DB_PASS'
-#    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password $DB_PASS'
-#    apt-get install -y mariadb-server
-#    echo "Upgrading MariaDB"
-#    apt-get install -y software-properties-common
-#    apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-#    add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/ubuntu trusty main'
-#    apt-get update -y
-#    export DEBIAN_FRONTEND=noninteractive
-#    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password $DB_PASS'
-#    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password $DB_PASS'
-#    apt-get install -y mariadb-server
-#fi
-#echo "MariaDB Installed"
+if [ ! -f /usr/bin/mysql ]
+    then
+    echo "Installing MariaDB"
+    apt-get update
+    apt-get install -y software-properties-common
+    apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+    add-apt-repository 'deb [arch=amd64,i386] http://ftp.utexas.edu/mariadb/repo/10.1/ubuntu trusty main'
+    apt-get update
+    export DEBIAN_FRONTEND=noninteractive
+    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password hd13555'
+    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password hd13555'
+    apt-get install -y mariadb-server
+fi
+echo "MariaDB Installed"
 
 if [ ! -f /usr/bin/supervisord ]
     then
