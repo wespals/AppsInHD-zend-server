@@ -28,6 +28,9 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8083
   config.vm.network "forwarded_port", guest: 10081, host: 10083
 
+  # Supervisor port
+  config.vm.network "forwarded_port", guest: 9001, host: 9003
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.33.10"
@@ -73,12 +76,21 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  config.vm.provision "shell", inline: <<-SHELL
-    cd /home/vagrant
-    wget http://downloads.zend.com/zendserver/8.5.3/ZendServer-8.5.3-RepositoryInstaller-linux.tar.gz
-    sudo tar -zxvf ZendServer-8.5.3-RepositoryInstaller-linux.tar.gz
-    cd ZendServer-RepositoryInstaller-linux/
-    sudo ./install_zs.sh 5.6 --automatic
-  SHELL
+  config.vm.provision "shell" do |s|
+    s.path = "provisioning/setup.sh"
+    s.args = ["8.5.3", "5.6", "HarrisData", "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp", "hd13555"]
+  end
+
+  # Running ansible playbook in the VM, cause lack of Windows support
+  # See http://www.thisprogrammingthing.com/2015/using-ansible-with-vagrant-and-windows/
+  #config.vm.provision "shell", path: "./install-ansible.sh"
+
+  # Run guest machine local provisioner
+  # See https://www.vagrantup.com/docs/provisioning/ansible_local.html
+  #config.vm.provision "ansible_local" do |ansible|
+  #  ansible.playbook = "/vagrant/provisioning/playbook.yml"
+  #end
+  # currently broken
+  # See https://github.com/mitchellh/vagrant/issues/6740
 
 end
