@@ -3,11 +3,11 @@ Installs and provisions an AppsInHD Zend Server
 
 ##Server Build Includes
 * Ubuntu 14.04 LTS
-* Zend Server 8.5.3
-* PHP 5.6
+* GIT
 * MariaDB 10.1
 * Supervisor
-* GIT
+* Zend Server 8.5.3
+* PHP 5.6
 
 ##Host Machine Setup
 1. Install Virtual Box (VM Software)
