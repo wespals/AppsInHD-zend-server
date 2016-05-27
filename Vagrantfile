@@ -76,14 +76,26 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  config.vm.provision "shell" do |s|
-    s.path = "provisioning/setup.sh"
-    s.args = ["8.5.3", "5.6", "HarrisData", "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp", "10.1", "hd13555"]
-  end
+  # Provision Base
+  config.vm.provision "shell", path: "provisioning/scripts/base.sh"
 
-  # Running ansible playbook in the VM, cause lack of Windows support
-  # See http://www.thisprogrammingthing.com/2015/using-ansible-with-vagrant-and-windows/
-  #config.vm.provision "shell", path: "./install-ansible.sh"
+  # Provision Ansible
+  #config.vm.provision "shell", path: "provisioning/scripts/ansible.sh"
+
+  # Provision Git
+  config.vm.provision "shell", path: "provisioning/scripts/git.sh"
+
+  # Provision MariaDB
+  config.vm.provision "shell", path: "provisioning/scripts/mariadb.sh", args: ["10.1", "hd13555"]
+
+  # Provision Supervisor
+  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh"
+
+  # Provision Zend Server
+  config.vm.provision "shell", path: "provisioning/scripts/zend-server.sh", args: ["8.5.3", "5.6", "HarrisData", "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
+
+  # Provision AppsInHD
+  config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh"
 
   # Run guest machine local provisioner
   # See https://www.vagrantup.com/docs/provisioning/ansible_local.html
@@ -92,5 +104,9 @@ Vagrant.configure(2) do |config|
   #end
   # currently broken
   # See https://github.com/mitchellh/vagrant/issues/6740
+
+  # Maybe run ansible playbook in the VM, cause lack of Windows support
+  # See http://www.thisprogrammingthing.com/2015/using-ansible-with-vagrant-and-windows/
+  #config.vm.provision "shell", path: "/path/to/ansible/provision.sh"
 
 end
