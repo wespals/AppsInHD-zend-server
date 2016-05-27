@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8083
   config.vm.network "forwarded_port", guest: 10081, host: 10083
 
-  # Supervisor port
+  # Supervisor WebUI port
   config.vm.network "forwarded_port", guest: 9001, host: 9003
 
   # Create a private network, which allows host-only access to the machine
@@ -78,7 +78,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell" do |s|
     s.path = "provisioning/setup.sh"
-    s.args = ["8.5.3", "5.6", "HarrisData", "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
+    s.args = ["8.5.3", "5.6", "HarrisData", "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp", "10.1", "hd13555"]
   end
 
   # Running ansible playbook in the VM, cause lack of Windows support

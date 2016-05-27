@@ -5,6 +5,8 @@ PHP_VERSION=$2
 ZS_ADMIN_PASSWORD=$3
 ZS_WEBAPI_KEY_NAME=$4
 ZS_WEBAPI_KEY_SECRET=$5
+DB_VERSION=$6
+DB_PASS=$7
 
 echo "Provisioning virtual machine..."
 
@@ -45,11 +47,11 @@ if [ ! -f /usr/bin/mysql ]
     apt-get update
     apt-get install -y software-properties-common
     apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-    add-apt-repository 'deb [arch=amd64,i386] http://ftp.utexas.edu/mariadb/repo/10.1/ubuntu trusty main'
+    add-apt-repository "deb [arch=amd64,i386] http://ftp.utexas.edu/mariadb/repo/$DB_VERSION/ubuntu trusty main"
     apt-get update
     export DEBIAN_FRONTEND=noninteractive
-    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password hd13555'
-    debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password hd13555'
+    debconf-set-selections <<< "mariadb-server-$DB_VERSION mysql-server/root_password password $DB_PASS"
+    debconf-set-selections <<< "mariadb-server-$DB_VERSION mysql-server/root_password_again password $DB_PASS"
     apt-get install -y mariadb-server
 fi
 echo "MariaDB Installed"
