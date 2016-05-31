@@ -6,8 +6,10 @@ Installs and provisions an AppsInHD Zend Server
 * GIT
 * MariaDB 10.1
 * Supervisor
+* OpenLDAP
 * Zend Server 8.5.3
 * PHP 5.6
+* phpLDAPadmin
 
 ##Host Machine Setup
 1. Install Virtual Box (VM Software)

@@ -89,10 +89,13 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "provisioning/scripts/mariadb.sh", args: ["10.1", "hd13555"]
 
   # Provision Supervisor
-  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh"
+  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: ["hd_d1_db", "D1"]
 
   # Provision Zend Server
   config.vm.provision "shell", path: "provisioning/scripts/zend-server.sh", args: ["8.5.3", "5.6", "HarrisData", "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
+
+  # Provision OpenLDAP
+  config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: ["hd13555", "vagrant-ubuntu-trusty-64.mke.intharrisdata.com", "HarrisData", "hd13555", 1, "D1", "GD1", "HDDemo", "hd13555"]
 
   # Provision AppsInHD
   config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh"
