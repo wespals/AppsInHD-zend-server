@@ -13,6 +13,13 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = "hdbox"
+
+  # HarrisData configuration vars
+  hd_pass = "hd13555"
+  hd_env = "D1"
+  hd_db_name = "hd_" + hd_env.downcase + "_db"
+  hd_ldap_domain = config.vm.hostname + ".mke.intharrisdata.com"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -26,10 +33,13 @@ Vagrant.configure(2) do |config|
 
   # HTTP and Zend Server ports
   config.vm.network "forwarded_port", guest: 80, host: 8083
-  config.vm.network "forwarded_port", guest: 10081, host: 10083
+  config.vm.network "forwarded_port", guest: 443, host: 8443
+  config.vm.network "forwarded_port", guest: 10080, host: 11081
+  config.vm.network "forwarded_port", guest: 10081, host: 11082
+  config.vm.network "forwarded_port", guest: 10082, host: 11083
 
   # Supervisor WebUI port
-  config.vm.network "forwarded_port", guest: 9001, host: 9003
+  config.vm.network "forwarded_port", guest: 9001, host: 19001
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -86,19 +96,19 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "provisioning/scripts/git.sh"
 
   # Provision MariaDB
-  config.vm.provision "shell", path: "provisioning/scripts/mariadb.sh", args: ["10.1", "hd13555"]
+  config.vm.provision "shell", path: "provisioning/scripts/mariadb.sh", args: ["10.1", hd_pass]
 
   # Provision Supervisor
-  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: ["hd_d1_db", "D1"]
+  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: [hd_db_name, hd_env, "admin", hd_pass]
 
   # Provision Zend Server
-  config.vm.provision "shell", path: "provisioning/scripts/zend-server.sh", args: ["8.5.3", "5.6", "HarrisData", "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
+  config.vm.provision "shell", path: "provisioning/scripts/zend-server.sh", args: ["8.5.3", "5.6", hd_pass, "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
 
   # Provision OpenLDAP
-  config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: ["hd13555", "vagrant-ubuntu-trusty-64.mke.intharrisdata.com", "HarrisData", "hd13555", 1, "D1", "GD1", "HDDemo", "hd13555"]
+  config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: [hd_pass, hd_ldap_domain, "HarrisData", hd_pass, 1, hd_env, "GD1", "HDDemo", hd_pass]
 
   # Provision AppsInHD
-  config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh"
+  config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env]
 
   # Run guest machine local provisioner
   # See https://www.vagrantup.com/docs/provisioning/ansible_local.html

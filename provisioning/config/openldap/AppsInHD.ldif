@@ -1,5 +1,5 @@
-# LDIF Export for DOMAIN_CTL
-# Server: My LDAP Server (DOMAIN)
+# LDIF Export for DOMAIN_COMPONENT_STR_VAL
+# Server: My LDAP Server (DOMAIN_VAL)
 # Search Scope: sub
 # Search Filter: (objectClass=*)
 # Total Entries: 18
@@ -9,46 +9,46 @@
 
 version: 1
 
-# Entry 1: DOMAIN_CTL
-#dn: DOMAIN_CTL
-#dc: HOST
-#o: LDAP_ORGANIZATION
+# Entry 1: DOMAIN_COMPONENT_STR_VAL
+#dn: DOMAIN_COMPONENT_STR_VAL
+#dc: HOST_VAL
+#o: ORGANIZATION_VAL
 #objectclass: top
 #objectclass: dcObject
 #objectclass: organization
 
-# Entry 2: cn=admin,DOMAIN_CTL
-#dn: cn=admin,DOMAIN_CTL
+# Entry 2: cn=admin,DOMAIN_COMPONENT_STR_VAL
+#dn: cn=admin,DOMAIN_COMPONENT_STR_VAL
 #cn: admin
 #description: LDAP administrator
 #objectclass: simpleSecurityObject
 #objectclass: organizationalRole
 #userpassword: {SSHA}MEaMk/n3iHYrkzK9mLO+tnMLt1eAThOT
 
-# Entry 3: o=DEFAULT_O,DOMAIN_CTL
-dn: o=DEFAULT_O,DOMAIN_CTL
-o: DEFAULT_O
+# Entry 3: o=O_VAL,DOMAIN_COMPONENT_STR_VAL
+dn: o=O_VAL,DOMAIN_COMPONENT_STR_VAL
+o: O_VAL
 objectclass: organization
 objectclass: top
 
-# Entry 4: ou=DEFAULT_OU,o=DEFAULT_O,DOMAIN_CTL
-dn: ou=DEFAULT_OU,o=DEFAULT_O,DOMAIN_CTL
+# Entry 4: ou=OU_VAL,o=O_VAL,DOMAIN_COMPONENT_STR_VAL
+dn: ou=OU_VAL,o=O_VAL,DOMAIN_COMPONENT_STR_VAL
 objectclass: organizationalUnit
 objectclass: top
-ou: DEFAULT_OU
+ou: OU_VAL
 
-# Entry 5: cn=DEFAULT_USER,ou=DEFAULT_OU,o=DEFAULT_O,DOMAIN_CTL
-dn: cn=DEFAULT_USER,ou=DEFAULT_OU,o=DEFAULT_O,DOMAIN_CTL
-cn: DEFAULT_USER
+# Entry 5: cn=USER_VAL,ou=OU_VAL,o=O_VAL,DOMAIN_COMPONENT_STR_VAL
+dn: cn=USER_VAL,ou=OU_VAL,o=O_VAL,DOMAIN_COMPONENT_STR_VAL
+cn: USER_VAL
 gidnumber: 1700
 givenname: Demo
 homedirectory: /home/u0015845
-o: DEFAULT_O
+o: O_VAL
 objectclass: inetOrgPerson
 objectclass: posixAccount
 objectclass: top
 objectclass: shadowAccount
 sn: Demo
-uid: DEFAULT_USER
+uid: USER_VAL
 uidnumber: 15000
-userpassword: DEFAULT_USER_PASS
+userpassword: USER_PASS_VAL
