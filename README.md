@@ -9,7 +9,8 @@ Installs and provisions an AppsInHD Zend Server
 * OpenLDAP
 * Zend Server 8.5.3
 * PHP 5.6
-* phpLDAPadmin
+* phpLDAPadmin http://192.168.33.10/phpldapadmin/
+* phpMyAdmin http://192.168.33.10/phpmyadmin/
 
 ##Host Machine Setup
 1. Install Virtual Box (VM Software)
