@@ -7,11 +7,10 @@ HOST=${DOMAIN_COMPONENTS[0]}
 DOMAIN_COMPONENT_STR="dc=$HOST,dc=${DOMAIN_COMPONENTS[1]},dc=${DOMAIN_COMPONENTS[2]},dc=${DOMAIN_COMPONENTS[3]}"
 ORGANIZATION=$3
 PASS=$4
-WITH_DNS=$5
-O=$6
-OU=$7
-USER=$8
-USER_PASS=$9
+O=$5
+OU=$6
+USER=$7
+USER_PASS=$8
 
 echo "Provisioning OpenLDAP..."
 
@@ -43,20 +42,3 @@ if [ ! -f /usr/sbin/slapd ]
 fi
 
 echo "OpenLDAP Installed"
-
-if [ ! -d /etc/phpldapadmin ]
-    then
-    echo "Installing phpLDAPadmin"
-    apt-get install -y phpldapadmin
-
-    echo "Configuring phpLDAPadmin"
-    cp /vagrant/provisioning/config/phpldapadmin/config.php /etc/phpldapadmin/config.php
-    if [ "$WITH_DNS" = 1 ]
-        then
-        sed -i -e "s/HOST_VAL/127.0.0.1/; s/DOMAIN_COMPONENT_STR_VAL/$DOMAIN_COMPONENT_STR/" /etc/phpldapadmin/config.php
-    else
-        sed -i -e "s/HOST_VAL/127.29.160.119/; s/DOMAIN_COMPONENT_STR_VAL/dc=ibmpdp/" /etc/phpldapadmin/config.php
-    fi
-fi
-
-echo "phpLDAPadmin Installed"

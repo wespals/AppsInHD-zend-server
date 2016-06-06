@@ -16,18 +16,10 @@ if [ ! -f /usr/bin/mysql ]
     debconf-set-selections <<< "mariadb-server-$VERSION mysql-server/root_password password $PASS"
     debconf-set-selections <<< "mariadb-server-$VERSION mysql-server/root_password_again password $PASS"
     apt-get install -y mariadb-server
+
+    echo "Configuring MariaDB $VERSION"
+    cp /vagrant/provisioning/config/mariadb/my.conf /etc/mysql/my.cnf
+    service mysql restart
 fi
 
 echo "MariaDB $VERSION Installed"
-
-if [ ! -d /etc/phpmyadmin ]
-    then
-    echo "Installing phpMyAdmin"
-    #http://gercogandia.blogspot.com/2012/11/automatic-unattended-install-of.html
-    export DEBIAN_FRONTEND=noninteractive
-    debconf-set-selections <<< "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2"
-    debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean true"
-    apt-get install -y phpmyadmin
-fi
-
-echo "phpMyAdmin Installed"

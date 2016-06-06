@@ -20,6 +20,8 @@ Vagrant.configure(2) do |config|
   hd_env = "D1"
   hd_db_name = "hd_" + hd_env.downcase + "_db"
   hd_ldap_domain = config.vm.hostname + ".mke.intharrisdata.com"
+  hd_ldap_o = hd_env
+  hd_ldap_ou = "G" + hd_ldap_o
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -40,6 +42,15 @@ Vagrant.configure(2) do |config|
 
   # Supervisor WebUI port
   config.vm.network "forwarded_port", guest: 9001, host: 19001
+
+  # AppsInHD ports
+  config.vm.network "forwarded_port", guest: 8201, host: 18201
+  config.vm.network "forwarded_port", guest: 8202, host: 18202
+  config.vm.network "forwarded_port", guest: 8203, host: 18203
+  config.vm.network "forwarded_port", guest: 8204, host: 18204
+  config.vm.network "forwarded_port", guest: 8205, host: 18205
+  config.vm.network "forwarded_port", guest: 8206, host: 18206
+  config.vm.network "forwarded_port", guest: 8207, host: 18207
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -105,10 +116,16 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "provisioning/scripts/zend-server.sh", args: ["8.5.3", "5.6", hd_pass, "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
 
   # Provision OpenLDAP
-  config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: [hd_pass, hd_ldap_domain, "HarrisData", hd_pass, 1, hd_env, "GD1", "HDDemo", hd_pass]
+  config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: [hd_pass, hd_ldap_domain, "HarrisData", hd_pass, hd_ldap_o, hd_ldap_ou, "HDDemo", hd_pass]
 
   # Provision AppsInHD
-  config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env]
+  #config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env, hd_db_name, "192.168.33.10", hd_ldap_domain, hd_ldap_o, hd_ldap_ou, hd_pass]
+
+  # Provision phpLDAPadmin
+  config.vm.provision "shell", path: "provisioning/scripts/phpldapadmin.sh", args: [hd_ldap_domain, 1]
+
+  # Provision phpMyAdmin
+  config.vm.provision "shell", path: "provisioning/scripts/phpmyadmin.sh", args: [hd_pass]
 
   # Run guest machine local provisioner
   # See https://www.vagrantup.com/docs/provisioning/ansible_local.html
