@@ -109,9 +109,6 @@ Vagrant.configure(2) do |config|
   # Provision MariaDB
   config.vm.provision "shell", path: "provisioning/scripts/mariadb.sh", args: ["10.1", hd_pass]
 
-  # Provision Supervisor
-  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: [hd_db_name, hd_env, "admin", hd_pass]
-
   # Provision Zend Server
   config.vm.provision "shell", path: "provisioning/scripts/zend-server.sh", args: ["8.5.3", "5.6", hd_pass, "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
 
@@ -120,6 +117,9 @@ Vagrant.configure(2) do |config|
 
   # Provision AppsInHD
   #config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env, hd_db_name, "192.168.33.10", hd_ldap_domain, hd_ldap_o, hd_ldap_ou, hd_pass]
+
+  # Provision Supervisor
+  #config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: [hd_db_name, hd_env, "admin", hd_pass]
 
   # Provision phpLDAPadmin
   config.vm.provision "shell", path: "provisioning/scripts/phpldapadmin.sh", args: [hd_ldap_domain, 1]
