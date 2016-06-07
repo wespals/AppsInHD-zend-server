@@ -57,7 +57,7 @@ fi
 
 echo "Completed AppsInHD configs"
 
-result=`mysqlshow -uroot -p${HD_DB} | grep -v Wildcard | grep -o ${HD_DB}`
+result=`mysqlshow -uroot -p${PASS} | grep -v Wildcard | grep -o ${HD_DB}`
 if [ "$result" != ${HD_DB} ]
     then
     echo "Creating database $HD_DB"
