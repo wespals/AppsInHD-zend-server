@@ -33,7 +33,7 @@ if [ ! -f ${WEB_CONF} ]
     then
     echo "Configuring AppsInHD vhost"
     cp /vagrant/provisioning/config/apache2/AppsInHD.conf ${WEB_CONF}
-    sed -i -e "s/APPLICATION_ENV_VAL/$APPLICATION_ENV/g; s/HD_ENV_VAL/$HD_ENV/g; s/APP_ROOT_VAL/\/var\/www\/AppsInHD\//g" ${WEB_CONF}
+    sed -i -e "s/APPLICATION_ENV_VAL/$APPLICATION_ENV/g; s/HD_ENV_VAL/$HD_ENV/g; s/SERVER_NAME_VAL/$HOST/g; s/APP_ROOT_VAL/\/var\/www\/AppsInHD\//g" ${WEB_CONF}
     a2ensite ${WEB_CONF_FILE}
     service apache2 restart
 fi
