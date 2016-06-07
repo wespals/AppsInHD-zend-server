@@ -17,9 +17,9 @@ if [ ! -d /etc/phpldapadmin ]
     cp /vagrant/provisioning/config/phpldapadmin/config.php /etc/phpldapadmin/config.php
     if [ "$WITH_DNS" = 1 ]
         then
-        sed -i -e "s/HOST_VAL/127.0.0.1/; s/DOMAIN_COMPONENT_STR_VAL/$DOMAIN_COMPONENT_STR/" /etc/phpldapadmin/config.php
+        sed -i -e "s/HOST_VAL/127.0.0.1/g; s/DOMAIN_COMPONENT_STR_VAL/$DOMAIN_COMPONENT_STR/g" /etc/phpldapadmin/config.php
     else
-        sed -i -e "s/HOST_VAL/127.29.160.119/; s/DOMAIN_COMPONENT_STR_VAL/dc=ibmpdp/" /etc/phpldapadmin/config.php
+        sed -i -e "s/HOST_VAL/127.29.160.119/g; s/DOMAIN_COMPONENT_STR_VAL/dc=ibmpdp/g" /etc/phpldapadmin/config.php
     fi
 fi
 

@@ -37,7 +37,7 @@ if [ ! -f /usr/sbin/slapd ]
 
     echo "Adding OpenLDAP Entry"
     cp /vagrant/provisioning/config/openldap/AppsInHD.ldif /home/vagrant/AppsInHD.ldif
-    sed -i -e "s/DOMAIN_COMPONENT_STR_VAL/$DOMAIN_COMPONENT_STR/; s/DOMAIN_VAL/$DOMAIN/; s/HOST_VAL/$HOST/; s/ORGANIZATION_VAL/$ORGANIZATION/; s/OU_VAL/$OU/; s/O_VAL/$O/; s/USER_PASS_VAL/$USER_PASS/; s/USER_VAL/$USER/" /home/vagrant/AppsInHD.ldif
+    sed -i -e "s/DOMAIN_COMPONENT_STR_VAL/$DOMAIN_COMPONENT_STR/g; s/DOMAIN_VAL/$DOMAIN/g; s/HOST_VAL/$HOST/g; s/ORGANIZATION_VAL/$ORGANIZATION/g; s/OU_VAL/$OU/g; s/O_VAL/$O/g; s/USER_PASS_VAL/$USER_PASS/g; s/USER_VAL/$USER/g" /home/vagrant/AppsInHD.ldif
     ldapadd -x -D "cn=admin,$DOMAIN_COMPONENT_STR" -w "$PASS" -H ldap:// -f /home/vagrant/AppsInHD.ldif
 fi
 
