@@ -30,6 +30,8 @@ if [ ! -d ${APP_ROOT} ]
     cp /vagrant/provisioning/config/appsInHD/id_rsa.pub /home/vagrant/.ssh
     chmod 600 /home/vagrant/.ssh/id_rsa.pub
     chown -R vagrant:vagrant /home/vagrant/.ssh
+    mkdir ${APP_ROOT}
+    chown -R vagrant:vagrant ${APP_ROOT}
     sudo -u vagrant git clone ssh://harrisdata@linuxdev/var/AppsInHD ${APP_ROOT}
     chown -R www-data:www-data ${APP_ROOT}
 fi
