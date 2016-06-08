@@ -117,10 +117,10 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: [hd_pass, hd_fqdn, "HarrisData", hd_pass, hd_ldap_o, hd_ldap_ou, hd_admin_user, hd_pass]
 
   # Provision AppsInHD
-  #config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env, hd_db_name, "192.168.33.10", hd_fqdn, hd_ldap_o, hd_ldap_ou, hd_pass, hd_admin_user]
+  config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env, hd_db_name, "192.168.33.10", hd_fqdn, hd_ldap_o, hd_ldap_ou, hd_pass, hd_admin_user]
 
   # Provision Supervisor
-  #config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: [hd_db_name, hd_env, "admin", hd_pass]
+  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: [hd_db_name, hd_env, "admin", hd_pass]
 
   # Provision phpLDAPadmin
   config.vm.provision "shell", path: "provisioning/scripts/phpldapadmin.sh", args: [hd_fqdn, 1]

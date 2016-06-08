@@ -24,7 +24,14 @@ echo "Provisioning AppsInHD..."
 if [ ! -d ${APP_ROOT} ]
     then
     echo "Cloning AppsInHD"
-    #git clone ssh://harrisdata@linuxdev/var/AppsInHD ${APP_ROOT}
+    ssh-keyscan -t rsa -H linuxdev >> /home/vagrant/.ssh/known_hosts
+    cp /vagrant/provisioning/config/appsInHD/id_rsa /home/vagrant/.ssh
+    chmod 600 /home/vagrant/.ssh/id_rsa
+    cp /vagrant/provisioning/config/appsInHD/id_rsa.pub /home/vagrant/.ssh
+    chmod 600 /home/vagrant/.ssh/id_rsa.pub
+    chown -R vagrant:vagrant /home/vagrant/.ssh
+    sudo -u vagrant git clone ssh://harrisdata@linuxdev/var/AppsInHD ${APP_ROOT}
+    chown -R www-data:www-data ${APP_ROOT}
 fi
 
 echo "AppsInHD Installed"
