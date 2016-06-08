@@ -33,7 +33,7 @@ if [ ! -f ${WEB_CONF} ]
     then
     echo "Configuring AppsInHD vhost"
     cp /vagrant/provisioning/config/apache2/AppsInHD.conf ${WEB_CONF}
-    sed -i -e "s/APPLICATION_ENV_VAL/$APPLICATION_ENV/g; s/HD_ENV_VAL/$HD_ENV/g; s/SERVER_NAME_VAL/$HOST/g; s/APP_ROOT_VAL/\/var\/www\/AppsInHD\//g" ${WEB_CONF}
+    sed -i -e "s/APPLICATION_ENV_VAL/$APPLICATION_ENV/g; s/HD_ENV_VAL/$HD_ENV/g; s/SERVER_NAME_VAL/$HOST/g; s#APP_ROOT_VAL#$APP_ROOT#g" ${WEB_CONF}
     a2ensite ${WEB_CONF_FILE}
     service apache2 restart
 fi
@@ -80,7 +80,7 @@ if [ "$result" != ${HD_DB} ]
     mysql -uroot -p${PASS} ${HD_DB} < ${APP_ROOT}Install/MYSQL_CreateDefaultData.sql
 
     echo "Creating $HD_DB foreign keys"
-    #mysql -uroot -p${PASS} ${HD_DB} < ${APP_ROOT}Install/MYSQL_CreateTablesFK.sql
+    mysql -uroot -p${PASS} ${HD_DB} < ${APP_ROOT}Install/MYSQL_CreateTablesFK.sql
 
     echo "Creating ${HD_ADMIN_USER} admin user"
     SQL="INSERT INTO ${HD_DB}.HdUser (USER_ID, AUTHORIZED_USER, DESCRIPTION, EMPLOYEE_ID, SYSTEM_MANAGER_AUTHORITY, COMMUNITY_USER, COMMUNITY_USER_PASSWORD, STATUS, ALTERNATE_KEY) VALUES (1,'${HD_ADMIN_USER}','harrisdata',NULL,3,'harrisdata','harrisdata',1,NULL);"
