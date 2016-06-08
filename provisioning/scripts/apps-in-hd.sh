@@ -29,6 +29,17 @@ fi
 
 echo "AppsInHD Installed"
 
+if [ ! -d /etc/apache2/ssl ]
+    then
+    echo "Configuring SSL"
+    a2enmod ssl
+    service apache2 restart
+    mkdir /etc/apache2/ssl
+    openssl req -new -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/ssl.key -out /etc/apache2/ssl/ssl.crt -subj /CN=${DOMAIN}
+fi
+
+echo "Completed SSL config"
+
 if [ ! -f ${WEB_CONF} ]
     then
     echo "Configuring AppsInHD vhost"
