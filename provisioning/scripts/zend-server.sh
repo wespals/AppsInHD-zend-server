@@ -15,6 +15,7 @@ if [ ! -f /usr/local/zend/bin/zs-manage ]
     tar -zxvf ZendServer-$ZS_VERSION-RepositoryInstaller-linux.tar.gz
     cd ZendServer-RepositoryInstaller-linux/
     ./install_zs.sh $PHP_VERSION --automatic
+    sed -i -e "s#date.timezone=UTC#date.timezone=America/Chicago#g" /usr/local/zend/etc/php.ini
 fi
 
 echo "Zend Server $ZS_VERSION Installed"
