@@ -33,6 +33,7 @@ if [ ! -d ${APP_ROOT} ]
     mkdir ${APP_ROOT}
     chown -R vagrant:vagrant ${APP_ROOT}
     sudo -u vagrant git clone ssh://harrisdata@linuxdev/var/AppsInHD ${APP_ROOT}
+    mkdir -p ${APP_ROOT}Gateway/public/ext/sw${HD_ENV}
     chown -R www-data:www-data ${APP_ROOT}
 fi
 
