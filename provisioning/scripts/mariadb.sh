@@ -17,9 +17,10 @@ if [ ! -f /usr/bin/mysql ]
     debconf-set-selections <<< "mariadb-server-$VERSION mysql-server/root_password_again password $PASS"
     apt-get install -y mariadb-server
 
-    echo "Configuring MariaDB $VERSION"
-    cp /vagrant/provisioning/config/mariadb/my.conf /etc/mysql/my.cnf
-    service mysql restart
+    #keep original configuration
+    #echo "Configuring MariaDB $VERSION"
+    #cp /vagrant/provisioning/config/mariadb/my.conf /etc/mysql/my.cnf
+    #service mysql restart
 fi
 
 echo "MariaDB $VERSION Installed"
