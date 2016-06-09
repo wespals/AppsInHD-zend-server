@@ -1,0 +1,23 @@
+/var/log/supervisor/*.log {
+    weekly
+    rotate 52
+    compress
+    delaycompress
+    notifempty
+    missingok
+    copytruncate
+}
+
+# -Log files are rotated weekly
+# -Log files are rotated 52 times before being removed
+# -Log files will be compressed
+# -Log files compression will have a delay of one rotation cycle
+# -Do not rotate the log if it is empty
+# -If the log file is missing, go on to the next one without issuing an error message
+# -Truncate the original log file to zero size in place after creating a copy,
+#   instead of moving the old log file and optionally creating a new one.
+#   It can be used when some program cannot be told to close its logfile
+#   and thus might continue writing (appending) to the previous log file forever
+#
+#   **Note that there is a very small time slice between copying the file and
+#   truncating it, so some logging data might be lost**

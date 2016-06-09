@@ -18,6 +18,13 @@ if [ ! -f /usr/bin/supervisord ]
     cp /vagrant/provisioning/config/supervisor/AppsInHD.conf /etc/supervisor/conf.d/AppsInHD.conf
     sed -i -e "s/HD_DB_VAL/$HD_DB/g; s/HD_ENV_VAL/$HD_ENV/g" /etc/supervisor/conf.d/AppsInHD.conf
     service supervisor restart
+
+    if [ ! -f /etc/logrotate.d/supervisor ]
+        then
+        echo "Installing Supervisor log rotation"
+        cp /vagrant/provisioning/config/supervisor/logrotate /etc/logrotate.d/supervisor
+    fi
+
 fi
 
 echo "Supervisor Installed"
