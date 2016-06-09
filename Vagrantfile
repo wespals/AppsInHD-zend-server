@@ -128,6 +128,13 @@ Vagrant.configure(2) do |config|
   # Provision phpMyAdmin
   config.vm.provision "shell", path: "provisioning/scripts/phpmyadmin.sh", args: [hd_pass]
 
+  # Provision Markdown
+  config.vm.provision "shell", path: "provisioning/scripts/markdown.sh"
+
+  # Provision complete
+  config.vm.provision "shell", inline: "markdown /vagrant/README.md > /var/www/html/index.html"
+  config.vm.provision "shell", inline: "echo Enjoy http://192.168.33.10/"
+
   # Run guest machine local provisioner
   # See https://www.vagrantup.com/docs/provisioning/ansible_local.html
   #config.vm.provision "ansible_local" do |ansible|
