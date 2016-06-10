@@ -27,6 +27,7 @@ Installs and provisions an AppsInHD Zend Server
     1. harrisdata
     2. hd_d1_db
 * Zend Server: admin
+* Zend Server Web API: admin
 * Supervisor: admin
 * phpLDAPadmin: cn=admin,dc=hdbox,dc=mke,dc=intharrisdata,dc=com
 * phpMyAdmin: hd_d1_db
