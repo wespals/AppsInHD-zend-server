@@ -42,7 +42,7 @@ dn: cn=USER_VAL,ou=OU_VAL,o=O_VAL,DOMAIN_COMPONENT_STR_VAL
 cn: USER_VAL
 gidnumber: 1700
 givenname: Demo
-homedirectory: /home/u0015845
+homedirectory: /home/HOME_DIRECTORY_VAL
 o: O_VAL
 objectclass: inetOrgPerson
 objectclass: posixAccount

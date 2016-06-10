@@ -16,13 +16,15 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "hdbox"
 
   # HarrisData configuration vars
+  hd_user = "harrisdata"
   hd_pass = "hd13555"
   hd_env = "D1"
   hd_db_name = "hd_" + hd_env.downcase + "_db"
   hd_fqdn = config.vm.hostname + ".mke.intharrisdata.com"
   hd_ldap_o = hd_env
   hd_ldap_ou = "G" + hd_ldap_o
-  hd_admin_user = "HDDemo"
+  hd_app_user = "HDDemo"
+  hd_app_root = "/home/"+ hd_user + "/AppsInHD/"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -118,13 +120,13 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "provisioning/scripts/zend-server.sh", args: ["8.5.3", "5.6", hd_pass, "admin", "aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnoooopppp"]
 
   # Provision OpenLDAP
-  config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: [hd_pass, hd_fqdn, "HarrisData", hd_pass, hd_ldap_o, hd_ldap_ou, hd_admin_user, hd_pass]
+  config.vm.provision "shell", path: "provisioning/scripts/ldap.sh", args: [hd_pass, hd_fqdn, "HarrisData", hd_pass, hd_ldap_o, hd_ldap_ou, hd_app_user, hd_pass, hd_db_name]
 
   # Provision AppsInHD
-  config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env, hd_db_name, "192.168.33.10", hd_fqdn, hd_ldap_o, hd_ldap_ou, hd_pass, hd_admin_user]
+  config.vm.provision "shell", path: "provisioning/scripts/apps-in-hd.sh", args: ["development", hd_env, hd_db_name, "192.168.33.10", hd_fqdn, hd_ldap_o, hd_ldap_ou, hd_user, hd_pass, hd_app_user, hd_app_root]
 
   # Provision Supervisor
-  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: [hd_db_name, hd_env, "admin", hd_pass]
+  config.vm.provision "shell", path: "provisioning/scripts/supervisor.sh", args: [hd_db_name, hd_env, hd_app_root, "admin", hd_pass]
 
   # Provision phpLDAPadmin
   config.vm.provision "shell", path: "provisioning/scripts/phpldapadmin.sh", args: [hd_fqdn, 1]

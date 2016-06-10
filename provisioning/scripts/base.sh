@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-IP=$1
-DOMAIN=$2
+IP=${1}
+DOMAIN=${2}
 
 echo "Provisioning base virtual machine..."
 
