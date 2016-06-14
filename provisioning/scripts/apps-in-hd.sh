@@ -120,6 +120,13 @@ if [ "$result" != ${HD_DB} ]
     SQL="${Q1}${Q2}${Q3}"
     mysql -uroot -p${PASS} -e "${SQL}"
 
+    echo "Creating reporting user ${HD_DB}r"
+    Q1="CREATE USER IF NOT EXISTS '${HD_DB}r'@'%' IDENTIFIED BY '${PASS}';"
+    Q2="GRANT ALL PRIVILEGES ON ${HD_DB}.* TO ${HD_DB}r@'%';"
+    Q3="FLUSH PRIVILEGES;"
+    SQL="${Q1}${Q2}${Q3}"
+    mysql -uroot -p${PASS} -e "${SQL}"
+
     echo "Creating ${HD_DB} tables"
     mysql -uroot -p${PASS} ${HD_DB} < ${APP_ROOT}Install/MYSQL_CreateTables.sql
 
