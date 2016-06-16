@@ -87,6 +87,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "2048"
     vb.cpus = 2
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
   # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
